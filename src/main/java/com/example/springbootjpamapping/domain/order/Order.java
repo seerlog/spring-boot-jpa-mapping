@@ -10,6 +10,7 @@ import lombok.experimental.SuperBuilder;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.UUID;
 
 @Getter
 @Setter
@@ -29,13 +30,37 @@ public class Order extends BaseEntity {
     @Column(name = "ORDER_AT", nullable = false)
     private LocalDateTime orderAt;
 
+    @Enumerated(value = EnumType.STRING)
     @Column(name = "STATUS", nullable = false)
-    private String status;
+    private Status status;
 
     @ManyToOne
     @JoinColumn(name = "MEMBER_NO")
     private Member member;
 
-    @OneToMany(mappedBy = "order", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "order", fetch = FetchType.LAZY,
+            cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH, CascadeType.DETACH })
     private List<OrderProduct> orderProducts;
+
+    public enum Status {
+        ORDER_CREATED,
+        PAYMENT_COMPLETED,
+        PREPARING_DELIVERY,
+        IN_TRANSIT,
+        DELIVERED,
+        ORDER_CANCELLED;
+
+        public static Status randomStatus() {
+            return values()[(int) (Math.random() * values().length)];
+        }
+    }
+
+    public static Order of(List<OrderProduct> orderProducts) {
+        return Order.builder()
+                .orderNumber(UUID.randomUUID().toString())
+                .orderAt(LocalDateTime.now())
+                .status(Status.randomStatus())
+                .orderProducts(orderProducts)
+                .build();
+    }
 }
