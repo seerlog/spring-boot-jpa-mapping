@@ -1,5 +1,7 @@
 package com.example.springbootjpamapping.domain.order;
 
+import com.example.springbootjpamapping.domain.member.Member;
+import com.example.springbootjpamapping.domain.product.Product;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -20,4 +22,12 @@ public class Order {
 
     @Column(name = "ORDER_DATE", nullable = false)
     private LocalDateTime orderDt;
+
+    @ManyToOne
+    @JoinColumn(name = "MEMBER_NO")
+    private Member member;
+
+    @ManyToOne
+    @JoinColumn(name = "PRODUCT_NO")
+    private Product product;
 }

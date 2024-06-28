@@ -1,7 +1,10 @@
 package com.example.springbootjpamapping.domain.member;
 
+import com.example.springbootjpamapping.domain.order.Order;
 import jakarta.persistence.*;
 import lombok.*;
+
+import java.util.List;
 
 @Getter
 @Setter
@@ -18,4 +21,7 @@ public class Member {
 
     @Column(name = "NAME", nullable = false)
     private String name;
+
+    @OneToMany(mappedBy = "member", fetch = FetchType.LAZY)
+    private List<Order> orders;
 }
