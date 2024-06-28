@@ -3,11 +3,11 @@ package com.example.springbootjpamapping.domain.product;
 import com.example.springbootjpamapping.domain.common.BaseEntity;
 import jakarta.persistence.*;
 import lombok.*;
+import lombok.experimental.SuperBuilder;
 
 @Getter
 @Setter
-@Builder
-@AllArgsConstructor
+@SuperBuilder
 @NoArgsConstructor
 @Table(name = "PRODUCT")
 @Entity
@@ -21,5 +21,5 @@ public class Product extends BaseEntity {
     private String name;
 
     @Column(name = "PRICE", nullable = false)
-    private Long price;
+    private Integer price;
 }

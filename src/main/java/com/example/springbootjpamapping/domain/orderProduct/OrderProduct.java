@@ -5,13 +5,13 @@ import com.example.springbootjpamapping.domain.order.Order;
 import com.example.springbootjpamapping.domain.product.Product;
 import jakarta.persistence.*;
 import lombok.*;
+import lombok.experimental.SuperBuilder;
 
 import java.time.LocalDateTime;
 
 @Getter
 @Setter
-@Builder
-@AllArgsConstructor
+@SuperBuilder
 @NoArgsConstructor
 @Table(name = "ORDER_PRODUCT")
 @Entity
