@@ -21,8 +21,8 @@ public class OrderProduct extends BaseEntity {
     @Column(name = "NO", nullable = false)
     private Long no;
 
-    @Column(name = "PRODUCT_COUNT", nullable = false)
-    private Integer productCount;
+    @Column(name = "QUANTITY", nullable = false)
+    private Integer quantity;
 
     @ManyToOne
     @JoinColumn(name = "ORDER_NO")

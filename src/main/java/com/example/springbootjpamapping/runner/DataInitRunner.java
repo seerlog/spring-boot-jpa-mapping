@@ -58,15 +58,15 @@ public class DataInitRunner implements ApplicationRunner {
     private List<OrderProduct> getOrderProducts() {
         List<Product> products = productRepository.findAll();
         return List.of(
-                OrderProduct.builder().product(products.get(0)).productCount(2).build(),
-                OrderProduct.builder().product(products.get(1)).productCount(1).build(),
-                OrderProduct.builder().product(products.get(2)).productCount(3).build(),
-                OrderProduct.builder().product(products.get(3)).productCount(1).build(),
-                OrderProduct.builder().product(products.get(4)).productCount(2).build(),
-                OrderProduct.builder().product(products.get(5)).productCount(1).build(),
-                OrderProduct.builder().product(products.get(6)).productCount(1).build(),
-                OrderProduct.builder().product(products.get(7)).productCount(2).build(),
-                OrderProduct.builder().product(products.get(8)).productCount(1).build()
+                OrderProduct.builder().product(products.get(0)).quantity(2).build(),
+                OrderProduct.builder().product(products.get(1)).quantity(1).build(),
+                OrderProduct.builder().product(products.get(2)).quantity(3).build(),
+                OrderProduct.builder().product(products.get(3)).quantity(1).build(),
+                OrderProduct.builder().product(products.get(4)).quantity(2).build(),
+                OrderProduct.builder().product(products.get(5)).quantity(1).build(),
+                OrderProduct.builder().product(products.get(6)).quantity(1).build(),
+                OrderProduct.builder().product(products.get(7)).quantity(2).build(),
+                OrderProduct.builder().product(products.get(8)).quantity(1).build()
         );
     }
 
