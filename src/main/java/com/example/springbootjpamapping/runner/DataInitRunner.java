@@ -32,42 +32,43 @@ public class DataInitRunner implements ApplicationRunner {
     }
 
     private List<Member> createMembers() {
-        Member member1 = Member.builder().name("김홍석").build();
-        List<Order> orders = createOrders(member1);
-        member1.setOrders(orders);
+        Member member1 = Member.builder().id("hong").name("김홍석").build();
+        List<Order> orders1 = createOrders(member1);
+        member1.setOrders(orders1);
 
+        Member member2 = Member.builder().id("jun").name("나연준").build();
+        List<Order> orders2 = createOrders(member2);
+        member2.setOrders(orders2);
 
+        Member member3 = Member.builder().id("park").name("박태경").build();
+        List<Order> orders3 = createOrders(member3);
+        member3.setOrders(orders3);
 
+        Member member4 = Member.builder().id("lee").name("이승준").build();
+        List<Order> orders4 = createOrders(member4);
+        member4.setOrders(orders4);
 
-//        Member member2 = Member.builder().name("나연준").orders(createOrders()).build();
-//        Member member3 = Member.builder().name("박태경").orders(createOrders()).build();
-//        Member member4 = Member.builder().name("이승준").orders(createOrders()).build();
-//        return List.of(member1, member2, member3, member4);
-        return List.of(member1);
+        return List.of(member1, member2, member3, member4);
     }
 
     private List<Order> createOrders(Member member) {
-        Order order = Order.builder().orderNumber(UUID.randomUUID().toString().replaceAll("-", "")).orderAt(LocalDateTime.now()).status(Order.Status.ORDER_CREATED).build();
-        Product product = productRepository.findAll().get(0);
-        OrderProduct orderProduct = OrderProduct.builder().order(order).product(product).quantity(3).build();
-        order.setMember(member);
-        order.setOrderProducts(List.of(orderProduct));
-        return List.of(order);
-    }
-
-    private List<OrderProduct> getOrderProducts() {
+        Order order = Order.builder().orderNumber(UUID.randomUUID().toString().replaceAll("-", ""))
+                .orderAt(LocalDateTime.now()).status(Order.Status.randomStatus()).build();
         List<Product> products = productRepository.findAll();
-        return List.of(
-                OrderProduct.builder().product(products.get(0)).quantity(2).build(),
-                OrderProduct.builder().product(products.get(1)).quantity(1).build(),
-                OrderProduct.builder().product(products.get(2)).quantity(3).build(),
-                OrderProduct.builder().product(products.get(3)).quantity(1).build(),
-                OrderProduct.builder().product(products.get(4)).quantity(2).build(),
-                OrderProduct.builder().product(products.get(5)).quantity(1).build(),
-                OrderProduct.builder().product(products.get(6)).quantity(1).build(),
-                OrderProduct.builder().product(products.get(7)).quantity(2).build(),
-                OrderProduct.builder().product(products.get(8)).quantity(1).build()
+        List<OrderProduct> orderProducts = List.of(
+                OrderProduct.builder().order(order).product(products.get(0)).quantity(2).build(),
+                OrderProduct.builder().order(order).product(products.get(1)).quantity(1).build(),
+                OrderProduct.builder().order(order).product(products.get(2)).quantity(3).build(),
+                OrderProduct.builder().order(order).product(products.get(3)).quantity(1).build(),
+                OrderProduct.builder().order(order).product(products.get(4)).quantity(2).build(),
+                OrderProduct.builder().order(order).product(products.get(5)).quantity(1).build(),
+                OrderProduct.builder().order(order).product(products.get(6)).quantity(1).build(),
+                OrderProduct.builder().order(order).product(products.get(7)).quantity(2).build(),
+                OrderProduct.builder().order(order).product(products.get(8)).quantity(1).build()
         );
+        order.setMember(member);
+        order.setOrderProducts(orderProducts);
+        return List.of(order);
     }
 
     private List<Product> createProducts() {
