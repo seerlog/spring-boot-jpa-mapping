@@ -42,13 +42,20 @@ public class Order extends BaseEntity {
             cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH, CascadeType.DETACH })
     private List<OrderProduct> orderProducts;
 
+    @Getter
     public enum Status {
-        ORDER_CREATED,
-        PAYMENT_COMPLETED,
-        PREPARING_DELIVERY,
-        IN_TRANSIT,
-        DELIVERED,
-        ORDER_CANCELLED;
+        ORDER_CREATED("주문 생성"),
+        PAYMENT_COMPLETED("결제 완료"),
+        PREPARING_DELIVERY("배송 준비중"),
+        IN_TRANSIT("배송중"),
+        DELIVERED("배송 완료"),
+        ORDER_CANCELLED("주문 취소");
+
+        private String description;
+
+        Status(String description) {
+            this.description = description;
+        }
 
         public static Status randomStatus() {
             return values()[(int) (Math.random() * values().length)];

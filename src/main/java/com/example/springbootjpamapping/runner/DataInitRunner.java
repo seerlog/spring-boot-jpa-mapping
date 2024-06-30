@@ -32,27 +32,27 @@ public class DataInitRunner implements ApplicationRunner {
     }
 
     private List<Member> createMembers() {
-        Member member1 = Member.builder().name("김홍석").orders(createOrders()).build();
-        Member member2 = Member.builder().name("나연준").orders(createOrders()).build();
-        Member member3 = Member.builder().name("박태경").orders(createOrders()).build();
-        Member member4 = Member.builder().name("이승준").orders(createOrders()).build();
-        return List.of(member1, member2, member3, member4);
+        Member member1 = Member.builder().name("김홍석").build();
+        List<Order> orders = createOrders(member1);
+        member1.setOrders(orders);
+
+
+
+
+//        Member member2 = Member.builder().name("나연준").orders(createOrders()).build();
+//        Member member3 = Member.builder().name("박태경").orders(createOrders()).build();
+//        Member member4 = Member.builder().name("이승준").orders(createOrders()).build();
+//        return List.of(member1, member2, member3, member4);
+        return List.of(member1);
     }
 
-    private List<Order> createOrders() {
-        return List.of(
-                Order.of(getOrderProducts()),
-                Order.of(getOrderProducts()),
-                Order.of(getOrderProducts()),
-                Order.of(getOrderProducts()),
-                Order.of(getOrderProducts()),
-                Order.of(getOrderProducts()),
-                Order.of(getOrderProducts()),
-                Order.of(getOrderProducts()),
-                Order.of(getOrderProducts()),
-                Order.of(getOrderProducts()),
-                Order.of(getOrderProducts())
-        );
+    private List<Order> createOrders(Member member) {
+        Order order = Order.builder().orderNumber(UUID.randomUUID().toString().replaceAll("-", "")).orderAt(LocalDateTime.now()).status(Order.Status.ORDER_CREATED).build();
+        Product product = productRepository.findAll().get(0);
+        OrderProduct orderProduct = OrderProduct.builder().order(order).product(product).quantity(3).build();
+        order.setMember(member);
+        order.setOrderProducts(List.of(orderProduct));
+        return List.of(order);
     }
 
     private List<OrderProduct> getOrderProducts() {
